@@ -130,16 +130,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// FORM HANDLING
+// FORM HANDLING (EMAILJS IMPLEMENTATION)
 // ============================================
 
 const contactForm = document.querySelector('.contact-form');
+const submitButton = document.querySelector('.btn-submit');
+
+// Inisialisasi EmailJS dengan Public Key Anda
+// GANTI 'YOUR_PUBLIC_KEY' dengan Public Key EmailJS Anda yang sebenarnya
+emailjs.init('service_lqj6tgu');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Get form values
+        // Nonaktifkan tombol submit dan ubah teks
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+
+        // Ambil nilai form
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const subject = document.getElementById('subject').value;
@@ -148,6 +157,8 @@ if (contactForm) {
         // Basic validation
         if (!name || !email || !subject || !message) {
             alert('Please fill in all fields');
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
             return;
         }
         
@@ -155,12 +166,36 @@ if (contactForm) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             alert('Please enter a valid email address');
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
             return;
         }
-        
-        // Success message
-        alert('Thank you for your message! I will get back to you soon.');
-        contactForm.reset();
+
+        // Parameter template EmailJS
+        const templateParams = {
+            from_name: name,
+            from_email: email,
+            to_name: 'Vicky Adrian Pratama', // Ganti dengan nama penerima
+            subject: subject,
+            message: message
+        };
+
+        // Kirim email menggunakan EmailJS
+        // GANTI 'YOUR_SERVICE_ID' dan 'YOUR_TEMPLATE_ID' dengan ID EmailJS Anda yang sebenarnya
+        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                alert('Thank you for your message! I will get back to you soon.');
+                contactForm.reset();
+            }, function(error) {
+                console.log('FAILED...', error);
+                alert('Failed to send message. Please try again later or contact me directly.');
+            })
+            .finally(function() {
+                // Aktifkan kembali tombol submit dan kembalikan teks
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+            });
     });
 }
 
