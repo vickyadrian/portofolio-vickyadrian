@@ -138,7 +138,7 @@ const submitButton = document.querySelector('.btn-submit');
 
 // Inisialisasi EmailJS dengan Public Key Anda
 // GANTI 'YOUR_PUBLIC_KEY' dengan Public Key EmailJS Anda yang sebenarnya
-emailjs.init('service_lqj6tgu');
+emailjs.init('V34pXClfsN-JAID5d');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -182,7 +182,7 @@ if (contactForm) {
 
         // Kirim email menggunakan EmailJS
         // GANTI 'YOUR_SERVICE_ID' dan 'YOUR_TEMPLATE_ID' dengan ID EmailJS Anda yang sebenarnya
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        emailjs.send('service_lqj6tgu', 'template_e927lmg', templateParams)
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
                 alert('Thank you for your message! I will get back to you soon.');
