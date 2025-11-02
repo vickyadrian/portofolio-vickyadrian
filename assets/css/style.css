@@ -18,8 +18,10 @@
     --border-color: rgba(99, 102, 241, 0.15);
     
     /* Golden Ratio Spacing (1.618) */
+    --space-ms: 2px;
+    --space-ss: 0.2rem;
     --space-xs: 0.5rem;      /* 8px */
-    --space-sm: 0.809rem;    /* 13px */
+    --space-sm: 0.8rem;    /* 13px */
     --space-base: 1.309rem;  /* 21px */
     --space-md: 2.118rem;    /* 34px */
     --space-lg: 3.427rem;    /* 55px */
@@ -27,13 +29,15 @@
     --space-2xl: 8.973rem;   /* 144px */
     
     /* Typography - Golden Ratio */
+    --font-ms: 2px;
+    --font-ss: 0.2rem;
     --font-xs: 0.75rem;      /* 12px */
     --font-sm: 0.875rem;     /* 14px */
     --font-base: 1rem;       /* 16px */
-    --font-lg: 1.309rem;     /* 21px */
-    --font-xl: 2.118rem;     /* 34px */
-    --font-2xl: 3.427rem;    /* 55px */
-    --font-3xl: 5.545rem;    /* 89px */
+    --font-lg: 1.2rem;     /* 21px */
+    --font-xl: 2rem;     /* 34px */
+    --font-2xl: 3rem;    /* 55px */
+    --font-3xl: 5rem;    /* 89px */
     
     /* Line Heights */
     --line-height-tight: 1.2;
@@ -113,7 +117,7 @@ body::before {
 }
 
 .section-title {
-    font-size: var(--font-3xl);
+    font-size: var(--font-2xl);
     font-weight: 800;
     text-align: center;
     margin-bottom: var(--space-xl);
@@ -223,7 +227,7 @@ body::before {
 }
 
 .mobile-menu.active .bar:nth-child(1) {
-    transform: rotate(-45deg) translate(-8px, 8px);
+    transform: rotate(-45deg) translate(-2px, 2px);
 }
 
 .mobile-menu.active .bar:nth-child(2) {
@@ -259,7 +263,7 @@ body::before {
 }
 
 .hero-title {
-    font-size: var(--font-3xl);
+    font-size: var(--font-2xl);
     font-weight: 800;
     margin-bottom: var(--space-md);
     line-height: var(--line-height-tight);
@@ -396,14 +400,14 @@ body::before {
 }
 
 .about-paragraph {
-    font-size: var(--font-lg);
+    font-size: var(--font-base);
     color: var(--text-muted);
     margin-bottom: var(--space-lg);
     line-height: var(--line-height-relaxed);
     text-align: justify;
 }
 
-.about-paragraph:last-of-type {
+graph:last-of-type {
     margin-bottom: var(--space-xl);
 }
 
@@ -499,7 +503,7 @@ body::before {
     padding: var(--space-xs) var(--space-base);
     border-radius: var(--radius-full);
     font-size: var(--font-xs);
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: var(--space-base);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -695,7 +699,7 @@ body::before {
 .project-tag {
     background: rgba(99, 102, 241, 0.15);
     color: var(--primary);
-    padding: var(--space-xs) var(--space-base);
+    padding: var(--space-ss) var(--space-sm);
     border-radius: var(--radius-full);
     font-size: var(--font-xs);
     font-weight: 600;
@@ -968,7 +972,7 @@ textarea.form-control {
     }
     
     .header {
-        padding: var(--space-base) 0;
+        padding: var(--space-ss) 0;
     }
     
     .header-content {
@@ -982,7 +986,7 @@ textarea.form-control {
     .nav-menu {
         display: none;
         position: absolute;
-        top: 70px;
+        top: 50px;
         left: 0;
         right: 0;
         flex-direction: column;
@@ -990,11 +994,15 @@ textarea.form-control {
         backdrop-filter: blur(10px);
         padding: var(--space-lg);
         border-bottom: 1px solid var(--border-color);
-        gap: var(--space-base);
+        gap: var(--space-xs);
     }
     
     .nav-menu.active {
         display: flex;
+    }
+    
+    .nav-link {
+      padding: var(--space-ms);
     }
     
     .mobile-menu {
@@ -1006,7 +1014,7 @@ textarea.form-control {
     }
     
     .section-title {
-        font-size: var(--font-2xl);
+        font-size: var(--font-xl);
         margin-bottom: var(--space-lg);
     }
     
