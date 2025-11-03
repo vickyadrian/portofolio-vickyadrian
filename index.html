@@ -23,29 +23,38 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Popup Welcome -->
+    <script>
+   window.onload = function() {
+    alert("Selamat datang di web gw cuy. Web masih dalam proses pengembangan, kalo ada saran kritik dan bug tinggal chat nomor gw atau kirim email ke gw (scroll paling bawah)");
+};
+</script>
 </head>
 <body>
     <!-- Navigation Header -->
     <header id="header" class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo" aria-label="Vicky Adrian Pratama - Home">Vicky<span>AP</span></a>
-                <nav class="navbar" aria-label="Main navigation">
-                    <ul id="menu" class="nav-menu">
-                        <li><a href="#home" class="nav-link">Home</a></li>
-                        <li><a href="#about" class="nav-link">About</a></li>
-                        <li><a href="#education" class="nav-link">Education</a></li>
-                        <li><a href="#skills" class="nav-link">Skills</a></li>
-                        <li><a href="#projects" class="nav-link">Projects</a></li>
-                        <li><a href="#contact" class="nav-link">Contact</a></li>
-                    </ul>
-                    <div class="mobile-menu" id="mobile-menu" aria-label="Mobile menu toggle">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>
-                </nav>
-            </div>
+        <div class="header-content">
+            <!-- Removed .container to allow header-content to handle max-width and padding -->
+            <a href="index.html" class="logo" aria-label="Vicky Adrian Pratama - Home">
+                <i class="fas fa-code" aria-hidden="true"></i> <!-- Added icon for a better logo look -->
+                VA
+            </a>
+            <nav class="navbar" aria-label="Main navigation">
+                <ul id="menu" class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li> <!-- Added active class to Home -->
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#certificates" class="nav-link">Certificates</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="mobile-menu" id="mobile-menu" aria-label="Mobile menu toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
         </div>
     </header>
 
@@ -108,7 +117,7 @@
                             <span>Magelung, Kendal</span>
                         </div>
                         <p class="education-description">
-                            Memulai perjalanan pendidikan formal dengan membangun fondasi dasar dalam membaca, menulis, dan berhitung. Mengembangkan karakter, disiplin, dan kemampuan bersosialisasi dengan teman sebaya.
+                            Beginning the journey of formal education by building a strong foundation in reading, writing, and arithmetic. Developing character, discipline, and social skills through interaction with peers.
                         </p>
                     </div>
                 </div>
@@ -124,7 +133,7 @@
                             <span>Kaliwungu, Kendal</span>
                         </div>
                         <p class="education-description">
-                            Melanjutkan pendidikan dengan pendalaman materi akademik dan pengembangan nilai-nilai keislaman. Aktif dalam kegiatan ekstrakurikuler dan mulai mengeksplorasi minat serta bakat.
+                            Continuing education with deeper academic exploration and the cultivation of Islamic values. Actively participating in extracurricular activities while discovering personal interests and talents.
                         </p>
                     </div>
                 </div>
@@ -140,7 +149,7 @@
                             <span>Kendal, Jawa Tengah</span>
                         </div>
                         <p class="education-description">
-                            Fokus pada pengembangan keterampilan teknis dan persiapan memasuki dunia kerja. Memperoleh kompetensi praktis sesuai jurusan yang dipilih dan mengasah kemampuan profesional dalam bidang teknologi jaringan.
+                            Focusing on technical skill development and preparation for entering the professional world. Gaining practical competencies aligned with the chosen field of study and refining professional abilities in network technology.
                         </p>
                     </div>
                 </div>
@@ -205,42 +214,42 @@
                     </div>
                     <h3 class="skill-title">JavaScript</h3>
                     <p class="skill-description">
-                        Strong knowledge of JavaScript for frontend development, including modern frameworks and libraries.
-                    </p>
-                    <div class="skill-progress">
-                        <div class="progress-bar" style="width: 88%;" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <span class="skill-percentage">88%</span>
-                </div>
-                
-                <!-- Network Routing -->
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-network-wired" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="skill-title">Network Routing</h3>
-                    <p class="skill-description">
-                        Specialized in configuring and maintaining complex network routing systems for optimal performance.
-                    </p>
-                    <div class="skill-progress">
-                        <div class="progress-bar" style="width: 92%;" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <span class="skill-percentage">92%</span>
-                </div>
-                
-                <!-- Arduino -->
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-microchip" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="skill-title">Arduino & IoT</h3>
-                    <p class="skill-description">
-                        Experience in developing IoT solutions and embedded systems using Arduino and microcontrollers.
+                        Skilled in front-end development with vanilla JavaScript and modern frameworks like React and Vue.js.
                     </p>
                     <div class="skill-progress">
                         <div class="progress-bar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <span class="skill-percentage">80%</span>
+                </div>
+                
+                <!-- Network Engineering -->
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-network-wired" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="skill-title">Network Engineering</h3>
+                    <p class="skill-description">
+                        Proficient in network design, configuration, and troubleshooting (Cisco, Mikrotik) with a focus on security and performance.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <span class="skill-percentage">90%</span>
+                </div>
+                
+                <!-- IoT & Embedded Systems -->
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-microchip" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="skill-title">IoT & Embedded Systems</h3>
+                    <p class="skill-description">
+                        Experience in developing IoT solutions using platforms like Arduino and Raspberry Pi, including sensor integration and data processing.
+                    </p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <span class="skill-percentage">75%</span>
                 </div>
             </div>
         </div>
@@ -251,62 +260,91 @@
         <div class="container">
             <h2 class="section-title">My <span class="gradient-text">Projects</span></h2>
             <div class="projects-grid">
-                <!-- Project 1 -->
-                <article class="project-card">
-                    <div class="project-image">
-                        <img src="assets/images/project-dancing-led.jpg" alt="Dancing LED with Wemos ESP8266 - IoT Project" loading="lazy">
-                    </div>
+                <!-- Project 1: Automatic Toll Gate -->
+                <a href="#" class="project-card" aria-label="Project: Automatic Toll Gate">
+                    <img src="assets/images/project-automatic-toll-gate.png" alt="Automatic Toll Gate Project" class="project-image" loading="lazy">
                     <div class="project-content">
-                        <h3 class="project-title">Dancing LED with Wemos ESP8266</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">Arduino</span>
-                            <span class="project-tag">IoT</span>
-                            <span class="project-tag">ESP8266</span>
-                        </div>
+                        <div class="project-category">IoT & Embedded Systems</div>
+                        <h3 class="project-title">Automatic Toll Gate</h3>
                         <p class="project-description">
-                            An interactive IoT project using Wemos ESP8266 microcontroller to create dynamic LED light patterns. Programmed with Arduino IDE, this project demonstrates real-time control and pattern generation capabilities.
+                            A prototype of an automatic toll gate system using Arduino, RFID, and servo motors to automate access control and payment.
                         </p>
-                        <a href="dancing-led.html" class="btn btn-primary">View Project</a>
+                        <span class="project-link">
+                            View Details
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </span>
                     </div>
-                </article>
+                </a>
                 
-                <!-- Project 2 -->
-                <article class="project-card">
-                    <div class="project-image">
-                        <img src="assets/images/project-automatic-toll-gate.png" alt="Automatic Toll Gate System - IoT Project" loading="lazy">
-                    </div>
+                <!-- Project 2: Dancing LED -->
+                <a href="dancing-led.html" class="project-card" aria-label="Project: Dancing LED">
+                    <img src="assets/images/project-dancing-led.jpg" alt="Dancing LED Project" class="project-image" loading="lazy">
                     <div class="project-content">
-                        <h3 class="project-title">Automatic Toll Gate System</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">Arduino</span>
-                            <span class="project-tag">IoT</span>
-                            <span class="project-tag">Sensors</span>
-                        </div>
+                        <div class="project-category">Embedded Systems</div>
+                        <h3 class="project-title">Dancing LED</h3>
                         <p class="project-description">
-                            A comprehensive IoT system for automated toll gate management using Wemos ESP8266, ultrasonic sensors, and servo motors. Developed with Arduino IDE, this system demonstrates sensor integration and automated control.
+                            A project involving programming an array of LEDs to display various dynamic light patterns synchronized with music or sound input.
                         </p>
-                        <a href="#" class="btn btn-primary">View Project</a>
+                        <span class="project-link">
+                            View Details
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </span>
                     </div>
-                </article>
+                </a>
                 
-                <!-- Project 3 -->
-                <article class="project-card">
-                    <div class="project-image">
-                        <img src="assets/images/project-dancing-led.jpg" alt="E-Commerce Platform - Web Development Project" loading="lazy">
-                    </div>
+                <!-- Project 3: Web Portfolio (This one) -->
+                <!-- <a href="#" class="project-card" aria-label="Project: Web Portfolio">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='55' font-size='18' fill='%2394a3b8' text-anchor='middle'%3EWeb Portfolio (This Site)%3C/text%3E%3C/svg%3E" alt="Web Portfolio Project" class="project-image" loading="lazy">
                     <div class="project-content">
-                        <h3 class="project-title">E-Commerce Platform</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">PHP</span>
-                            <span class="project-tag">MySQL</span>
-                            <span class="project-tag">JavaScript</span>
-                        </div>
+                        <div class="project-category">Web Development</div>
+                        <h3 class="project-title">Personal Web Portfolio</h3>
                         <p class="project-description">
-                            A full-featured e-commerce solution with secure payment integration, inventory management, and user authentication. Built with modern web technologies for optimal performance and user experience.
+                            A responsive and modern personal portfolio website built with HTML, CSS, and JavaScript to showcase skills and projects.
                         </p>
-                        <a href="#" class="btn btn-primary">View Project</a>
+                        <span class="project-link">
+                            View Details
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </span>
                     </div>
-                </article>
+                </a> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="section section-certificates">
+        <div class="container">
+            <h2 class="section-title">My <span class="gradient-text">Certificates</span></h2>
+            <div class="certificates-grid">
+                <!-- Certificate 1: RCNA -->
+                <a href="assets/certified/RCNA - Vicky Adrian Pratama.jpg" target="_blank" class="certificate-card" aria-label="Certificate: RCNA">
+                    <img src="assets/certified/RCNA - Vicky Adrian Pratama.jpg" alt="RCNA Certificate" class="certificate-image" loading="lazy">
+                    <div class="certificate-content">
+                        <div class="certificate-issuer">MikroTik Academy</div>
+                        <h3 class="certificate-title">MikroTik Certified Network Associate (RCNA)</h3>
+                        <div class="certificate-date">Issued: 2024</div>
+                    </div>
+                </a>
+                
+                <!-- Certificate 2: Placeholder -->
+<!--                 <a href="#" class="certificate-card" aria-label="Certificate: Placeholder">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='55' font-size='18' fill='%2394a3b8' text-anchor='middle'%3ECertificate Placeholder%3C/text%3E%3C/svg%3E" alt="Certificate Placeholder" class="certificate-image" loading="lazy">
+                    <div class="certificate-content">
+                        <div class="certificate-issuer">Institution Name</div>
+                        <h3 class="certificate-title">Certificate Title</h3>
+                        <div class="certificate-date">Issued: YYYY</div>
+                    </div>
+                </a>
+                 -->
+                <!-- Certificate 3: Placeholder -->
+<!--                 <a href="#" class="certificate-card" aria-label="Certificate: Placeholder">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e293b'/%3E%3Ctext x='50' y='55' font-size='18' fill='%2394a3b8' text-anchor='middle'%3ECertificate Placeholder%3C/text%3E%3C/svg%3E" alt="Certificate Placeholder" class="certificate-image" loading="lazy">
+                    <div class="certificate-content">
+                        <div class="certificate-issuer">Institution Name</div>
+                        <h3 class="certificate-title">Certificate Title</h3>
+                        <div class="certificate-date">Issued: YYYY</div>
+                    </div>
+                </a> -->
             </div>
         </div>
     </section>
@@ -315,83 +353,53 @@
     <section id="contact" class="section section-contact">
         <div class="container">
             <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
-            
-            <div class="contact-wrapper">
+            <p class="contact-description">
+                I'm currently open to new opportunities and collaborations. Feel free to reach out if you have a project in mind or just want to say hello!
+            </p>
+            <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm always interested in hearing about new projects and opportunities. Feel free to reach out if you'd like to collaborate or just say hello!</p>
-                    
-                    <div class="contact-items">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Email</h4>
-                                <p><a href="mailto:vickyadrian.25k@gmail.com">vickyadrian.25k@gmail.com</a></p>
-                            </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
                         </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone" aria-hidden="true"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Phone</h4>
-                                <p><a href="tel:+6283110389487">+62 831-1038-9487</a></p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Location</h4>
-                                <p>Sumberejo, Jawa Tengah, Indonesia</p>
-                            </div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <p>vickyadrian.25k@gmail.com</p>
                         </div>
                     </div>
-                    
-                    <div class="social-links">
-                        <a href="https://github.com/vickyadrian" class="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-github" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/vicky-a-9549b2330?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://wa.me/6283110389487?text=Halo!%20👋%0ASaya%20tertarik%20dengan%20portofolio%20Anda%20yang%20saya%20lihat%20di%20situs/web.%0ABisa%20bantu%20jelaskan%20lebih%20lanjut%20tentang%20layanan%20Anda%3F" class="social-link" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://www.instagram.com/vicky_adrian.p?igsh=MXd1aWVsZTlvM2xrNw==" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                        </a>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Phone</h4>
+                            <p>+62 831-1038-9487</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Location</h4>
+                            <p>Kendal, Jawa Tengah, Indonesia</p>
+                        </div>
                     </div>
                 </div>
-                
-                <form class="contact-form" action="#" method="POST" novalidate>
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
-                </form>
+                <div class="social-links">
+                    <a href="https://github.com/vickyap" target="_blank" class="social-link" aria-label="GitHub Profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/vicky-a-9549b2330?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-link" aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://wa.me/6283110389487?text=Halo20%cuy,20%web%20%lu20%keren20%banget20%" target="_blank" class="social-link" aria-label="Twitter Profile">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.instagram.com/vicky_adrian.p?igsh=MXd1aWVsZTlvM2xrNw==" target="_blank" class="social-link" aria-label="Instagram Profile">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -399,28 +407,14 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 Vicky Adrian Pratama. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
-                </div>
-            </div>
+            <p class="footer-text">
+                &copy; <span id="current-year"></span> Vicky Adrian Pratama. All rights reserved.
+                Built with <a href="https://html5up.net" target="_blank">HTML5 UP</a> and lots of coffee.
+            </p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
-    </button>
-    
-<!-- EmailJS Script -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-<!-- Main Script -->
-<script src="main.js"></script> <!-- hapus 'defer' -->
-
+    <!-- JavaScript -->
+    <script src="main.js"></script>
 </body>
 </html>

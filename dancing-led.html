@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proyek Implementasi Efek Pencahayaan Dinamis (Dancing LED) Berbasis IoT menggunakan Wemos ESP8266.">
+    <meta name="keywords" content="Dancing LED, Wemos ESP8266, IoT, Arduino, Embedded System, Vicky Adrian Pratama">
+    <meta name="author" content="Vicky Adrian Pratama">
+    <title>Proyek: Dancing LED dengan Wemos ESP8266 - Vicky Adrian Pratama</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%236366f1'>V</text></svg>">
+    
+    <!-- External Resources -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Custom styles for project detail page */
+        .project-detail-section {
+            padding: 100px 0;
+            background-color: var(--dark-bg); /* Use CSS variable for consistency */
+            color: var(--text); /* Use CSS variable for consistency */
+        }
+        .project-detail-container {
+            max-width: 1000px; /* Slightly wider container for PC view */
+            margin: 0 auto;
+            padding: 0 var(--space-lg); /* Use CSS variable for consistency */
+        }
+        
+        /* New Layout: Two-column for desktop, single for mobile */
+        .project-layout {
+            display: grid;
+            grid-template-columns: 1fr; /* Default to single column for mobile */
+            gap: var(--space-xl);
+        }
+
+        .project-main-content {
+            order: 2; /* Content below sidebar on mobile */
+        }
+
+        .project-sidebar {
+            order: 1; /* Sidebar above content on mobile */
+            background-color: var(--card-bg);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            position: sticky; /* Sticky sidebar for desktop */
+            top: 120px; /* Adjust based on header height */
+            align-self: start; /* Prevent stretching */
+        }
+
+        @media screen and (min-width: 1024px) {
+            .project-layout {
+                grid-template-columns: 2fr 1fr; /* 2/3 content, 1/3 sidebar for desktop */
+            }
+            .project-main-content {
+                order: initial;
+            }
+            .project-sidebar {
+                order: initial;
+            }
+        }
+        @media (max-width: 768px) {
+          
+        }
+        
+        /* Content Styling */
+        .project-detail-container h1 {
+            font-size: var(--font-3xl);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            color: var(--primary);
+        }
+        .project-detail-container h2 {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-base);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: var(--space-xs);
+        }
+        .project-detail-container h3 {
+            font-size: var(--font-xl);
+            font-weight: 600;
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+            color: var(--text-light);
+        }
+        .project-detail-container p, .project-detail-container li {
+            font-size: var(--font-base);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: var(--space-base);
+            color: var(--text-muted);
+        }
+        .project-detail-container strong {
+            color: var(--text);
+        }
+        .project-detail-container img {
+            max-width: 100%;
+            height: auto;
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+        .project-detail-container pre {
+            background-color: var(--darker-bg);
+            padding: var(--space-md);
+            border-radius: var(--radius-sm);
+            overflow-x: auto;
+            margin-bottom: var(--space-lg);
+            border: 1px solid var(--border-color);
+        }
+        .project-detail-container code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: var(--font-sm);
+            color: var(--text-light);
+        }
+        .project-detail-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-lg) 0;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        .project-detail-container th, .project-detail-container td {
+            border: 1px solid var(--border-color);
+            padding: var(--space-base);
+            text-align: left;
+        }
+        .project-detail-container th {
+            background-color: var(--primary-dark);
+            color: white;
+            font-weight: 600;
+        }
+        .project-detail-container td {
+            background-color: rgba(30, 30, 46, 0.4);
+            color: var(--text-light);
+        }
+        .project-detail-container ol {
+            padding-left: var(--space-lg);
+        }
+        .project-detail-container ol li {
+            margin-bottom: var(--space-xs);
+        }
+
+        /* Sidebar Styling */
+        .sidebar-item {
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-base);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .sidebar-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .sidebar-item h4 {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-sm);
+        }
+        .sidebar-item ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-item ul li {
+            font-size: var(--font-base);
+            color: var(--text-muted);
+            margin-bottom: var(--space-xs);
+        }
+        .sidebar-item ul li strong {
+            color: var(--text);
+        }
+        .sidebar-item a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition-normal);
+        }
+        .sidebar-item a:hover {
+            color: var(--secondary);
+        }
+
+        /* Back to Home Button */
+        .back-to-home {
+            display: inline-block;
+            margin-top: var(--space-xl);
+            font-size: var(--font-lg);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color var(--transition-normal);
+        }
+        .back-to-home:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Navigation Header (Copied from index.html) -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Vicky Adrian Pratama">Vicky<span>AP</span></a>
+                <nav class="navbar" aria-label="Main navigation">
+                    <ul id="menu" class="nav-menu">
+                        <li><a href="index.html#home" class="nav-link">Home</a></li>
+                        <li><a href="index.html#about" class="nav-link">About</a></li>
+                        <li><a href="index.html#education" class="nav-link">Education</a></li>
+                        <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                        <li><a href="index.html#projects" class="nav-link active">Projects</a></li>
+                        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                    <div class="mobile-menu" id="mobile-menu" aria-label="Mobile menu toggle">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Detail Section -->
+    <section id="project-detail" class="project-detail-section">
+        <div class="project-detail-container">
+            
+            <h1>Proyek: Implementasi Efek Pencahayaan Dinamis (Dancing LED) Berbasis IoT</h1>
+
+            <div class="project-layout">
+                <div class="project-main-content">
+                    <p>Proyek ini mendemonstrasikan implementasi sistem pencahayaan dinamis yang dikenal sebagai "Dancing LED" menggunakan mikrokontroler <strong>Wemos D1 Mini (ESP8266)</strong>. Tujuannya adalah untuk menciptakan pola nyala LED yang terprogram dan berulang, memberikan efek visual yang menarik. Proyek ini merupakan contoh fundamental dalam bidang <strong>Internet of Things (IoT)</strong> dan <strong>Sistem Tertanam (Embedded Systems)</strong>, menunjukkan kemampuan mikrokontroler dalam mengendalikan aktuator secara <em>real-time</em> berdasarkan logika yang kompleks.</p>
+
+                    <h2>Visualisasi Proyek</h2>
+                    <img src="assets/images/project-dancing-led.jpg" alt="Setup Proyek Dancing LED dengan Wemos D1 Mini dan Breadboard">
+                    <p style="text-align: center; font-style: italic; color: var(--text-muted); font-size: var(--font-sm);">Setup hardware proyek Dancing LED yang menunjukkan koneksi Wemos D1 Mini ke 8 LED melalui breadboard.</p>
+
+                    <h2>Spesifikasi Teknis</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Komponen</th>
+                                <th>Deskripsi</th>
+                                <th>Fungsi dalam Proyek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Komponen"><strong>Mikrokontroler</strong></td>
+                                <td data-label="Deskripsi">Wemos D1 Mini (ESP8266)</td>
+                                <td data-label="Fungsi dalam Proyek">Unit pemroses utama yang menjalankan logika program dan mengendalikan <em>output</em> digital. Dipilih karena ukurannya yang ringkas, harga yang efisien, dan integrasi Wi-Fi <em>built-in</em>.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Komponen"><strong>Aktuator</strong></td>
+                                <td data-label="Deskripsi">8x LED (Light Emitting Diode)</td>
+                                <td data-label="Fungsi dalam Proyek">Menampilkan efek visual "Dancing LED" melalui status nyala/mati yang terprogram.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Komponen"><strong>Interkoneksi</strong></td>
+                                <td data-label="Deskripsi">Breadboard &amp; Kabel Jumper</td>
+                                <td data-label="Fungsi dalam Proyek">Media prototipe untuk menghubungkan komponen secara non-permanen dan memfasilitasi pengujian sirkuit.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Komponen"><strong>Lingkungan Pengembangan</strong></td>
+                                <td data-label="Deskripsi">Arduino IDE</td>
+                                <td data-label="Fungsi dalam Proyek">Digunakan untuk menulis, mengkompilasi, dan mengunggah kode (sketsa) ke mikrokontroler ESP8266.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Komponen"><strong>Bahasa Pemrograman</strong></td>
+                                <td data-label="Deskripsi">C/C++ (Arduino Sketch)</td>
+                                <td data-label="Fungsi dalam Proyek">Bahasa tingkat rendah yang digunakan untuk memprogram operasi <em>hardware</em> secara langsung.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Diagram Sirkuit dan Koneksi Hardware</h2>
+                    <p>Sistem ini dirancang untuk mengendalikan delapan (8) LED secara independen melalui pin <em>General Purpose Input/Output</em> (GPIO) pada Wemos D1 Mini.</p>
+
+                    <h3>Tabel Koneksi Pin Wemos D1 Mini ke LED:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>LED ke-</th>
+                                <th>Pin Wemos D1 Mini</th>
+                                <th>Pin GPIO ESP8266</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="LED ke-">1</td>
+                                <td data-label="Pin Wemos D1 Mini">D1</td>
+                                <td data-label="Pin GPIO ESP8266">5</td>
+                            </tr>
+                            <tr>
+                                <td data-label="LED ke-">2</td>
+                                <td data-label="Pin Wemos D1 Mini">D2</td>
+                                <td data-label="Pin GPIO ESP8266">4</td>
+                            </tr>
+                            <tr>
+                                <td data-label="LED ke-">3</td>
+                                <td data-label="Pin Wemos D1 Mini">D3</td>
+                                <td data-label="Pin GPIO ESP8266">0</td>
+                            </tr>
+                            <tr>
+                                <td data-label="LED ke-">4</td>
+                                <td data-label="Pin Wemos D1 Mini">D4</td>
+                                <td data-label="Pin GPIO ESP8266">2</td>
+                            </tr>
+                            <tr>
+                                <td data-label="LED ke-">5</td>
+                                <td data-label="Pin Wemos D1 Mini">D5</td>
+                                <td data-label="Pin GPIO ESP8266">15</td>
+                            </tr>
+                            <tr>
+                                <td data-label="LED ke-">6</td>
+                                <td data-label="Pin Wemos D1 Mini">D6</td>
+                                <td data-label="Pin GPIO ESP8266">12</td>
+                            </tr>
+                            <tr>
+                                <td data-label="LED ke-">7</td>
+                                <td data-label="Pin Wemos D1 Mini">D7</td>
+                                <td data-label="Pin GPIO ESP8266">13</td>
+                            </tr>
+                            <tr>
+                                <td data-label="LED ke-">8</td>
+                                <td data-label="Pin Wemos D1 Mini">D8</td>
+                                <td data-label="Pin GPIO ESP8266">14</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Catatan Penting:</strong> Kaki negatif (katoda) dari setiap LED harus dihubungkan ke pin <strong>Ground (GND)</strong> pada Wemos D1 Mini untuk melengkapi sirkuit.</p>
+
+                    <h2>Implementasi Kode (Arduino Sketch)</h2>
+                    <p>Logika program diimplementasikan dalam fungsi <code>loop()</code> untuk menciptakan enam (6) pola pencahayaan dinamis yang berbeda secara berulang. Setiap pola menggunakan fungsi <code>digitalWrite()</code> untuk mengatur status pin (HIGH/LOW) dan fungsi <code>delay()</code> untuk mengontrol durasi transisi antar status.</p>
+
+                    <h3>Deklarasi Pin</h3>
+                    <pre><code>int b1 = 5;  // GPIO 5 (D1)
+int b2 = 4;  // GPIO 4 (D2)
+int b3 = 0;  // GPIO 0 (D3)
+int b4 = 2;  // GPIO 2 (D4)
+int b5 = 15; // GPIO 15 (D5)
+int b6 = 12; // GPIO 12 (D6)
+int b7 = 13; // GPIO 13 (D7)
+int b8 = 14; // GPIO 14 (D8)</code></pre>
+
+                    <h3>Fungsi Setup</h3>
+                    <p>Fungsi <code>setup()</code> menginisialisasi semua pin yang terhubung ke LED sebagai <em>output</em>.</p>
+                    <pre><code>void setup() {
+    pinMode(b1, OUTPUT);
+    pinMode(b2, OUTPUT);
+    pinMode(b3, OUTPUT);
+    pinMode(b4, OUTPUT);
+    pinMode(b5, OUTPUT);
+    pinMode(b6, OUTPUT);
+    pinMode(b7, OUTPUT);
+    pinMode(b8, OUTPUT);
+}</code></pre>
+
+                    <h3>Fungsi Loop (Pola Pencahayaan)</h3>
+                    <p>Fungsi <code>loop()</code> berisi logika utama untuk menghasilkan pola-pola LED. Pola-pola tersebut meliputi:</p>
+                    <ol>
+                        <li><strong>Pola 1 (Menutup ke Tengah):</strong> LED luar menyala berpasangan menuju ke tengah.</li>
+                        <li><strong>Pola 2 (Membuka ke Luar):</strong> LED tengah menyala berpasangan menuju ke luar.</li>
+                        <li><strong>Pola 3 (Berjalan Maju):</strong> LED menyala satu per satu dari 1 ke 8.</li>
+                        <li><strong>Pola 4 (Berjalan Mundur):</strong> LED menyala satu per satu dari 8 ke 1.</li>
+                        <li><strong>Pola 5 (Pasangan Maju):</strong> LED menyala berpasangan dari kiri ke kanan.</li>
+                        <li><strong>Pola 6 (Pasangan Mundur):</strong> LED menyala berpasangan dari kanan ke kiri.</li>
+                    </ol>
+
+                    <h4>Kode Lengkap Pola:</h4>
+                    <pre><code>void loop() {
+    // Pola 1: Menutup ke Tengah (LED 1-8, 2-7, 3-6, 4-5)
+    digitalWrite(b1, HIGH); digitalWrite(b8, HIGH); delay(100);
+    digitalWrite(b1, LOW); digitalWrite(b8, LOW);
+    digitalWrite(b2, HIGH); digitalWrite(b7, HIGH); delay(100);
+    digitalWrite(b2, LOW); digitalWrite(b7, LOW);
+    digitalWrite(b3, HIGH); digitalWrite(b6, HIGH); delay(100);
+    digitalWrite(b3, LOW); digitalWrite(b6, LOW);
+    digitalWrite(b4, HIGH); digitalWrite(b5, HIGH); delay(100);
+    digitalWrite(b4, LOW); digitalWrite(b5, LOW);
+    
+    // Pola 2: Membuka ke Luar (LED 4-5, 3-6, 2-7, 1-8)
+    digitalWrite(b4, HIGH); digitalWrite(b5, HIGH); delay(100);
+    digitalWrite(b4, LOW); digitalWrite(b5, LOW);
+    digitalWrite(b3, HIGH); digitalWrite(b6, HIGH); delay(100);
+    digitalWrite(b3, LOW); digitalWrite(b6, LOW);
+    digitalWrite(b2, HIGH); digitalWrite(b7, HIGH); delay(100);
+    digitalWrite(b2, LOW); digitalWrite(b7, LOW);
+    digitalWrite(b1, HIGH); digitalWrite(b8, HIGH); delay(100);
+    digitalWrite(b1, LOW); digitalWrite(b8, LOW);
+    
+    // Pola 3: Berjalan Maju (LED 1 -> 8)
+    digitalWrite(b1, HIGH); delay(100);
+    digitalWrite(b2, HIGH); delay(100);
+    digitalWrite(b3, HIGH); delay(100);
+    digitalWrite(b4, HIGH); delay(100);
+    digitalWrite(b5, HIGH); delay(100);
+    digitalWrite(b6, HIGH); delay(100);
+    digitalWrite(b7, HIGH); delay(100);
+    digitalWrite(b8, HIGH); delay(100);
+    digitalWrite(b1, LOW); digitalWrite(b2, LOW); digitalWrite(b3, LOW); digitalWrite(b4, LOW);
+    digitalWrite(b5, LOW); digitalWrite(b6, LOW); digitalWrite(b7, LOW); digitalWrite(b8, LOW);
+    
+    // Pola 4: Berjalan Mundur (LED 8 -> 1)
+    digitalWrite(b8, HIGH); delay(100);
+    digitalWrite(b7, HIGH); delay(100);
+    digitalWrite(b6, HIGH); delay(100);
+    digitalWrite(b5, HIGH); delay(100);
+    digitalWrite(b4, HIGH); delay(100);
+    digitalWrite(b3, HIGH); delay(100);
+    digitalWrite(b2, HIGH); delay(100);
+    digitalWrite(b1, HIGH); delay(100);
+    digitalWrite(b1, LOW); digitalWrite(b2, LOW); digitalWrite(b3, LOW); digitalWrite(b4, LOW);
+    digitalWrite(b5, LOW); digitalWrite(b6, LOW); digitalWrite(b7, LOW); digitalWrite(b8, LOW);
+    
+    // Pola 5: Pasangan Maju (LED 1-2, 3-4, 5-6, 7-8)
+    digitalWrite(b1, HIGH); digitalWrite(b2, HIGH); delay(100);
+    digitalWrite(b3, HIGH); digitalWrite(b4, HIGH); delay(100);
+    digitalWrite(b5, HIGH); digitalWrite(b6, HIGH); delay(100);
+    digitalWrite(b7, HIGH); digitalWrite(b8, HIGH); delay(100);
+    digitalWrite(b8, LOW); digitalWrite(b7, LOW); digitalWrite(b6, LOW); digitalWrite(b5, LOW);
+    digitalWrite(b4, LOW); digitalWrite(b3, LOW); digitalWrite(b2, LOW); digitalWrite(b1, LOW);
+    
+    // Pola 6: Pasangan Mundur (LED 8-7, 6-5, 4-3, 2-1)
+    digitalWrite(b8, HIGH); digitalWrite(b7, HIGH); delay(100);
+    digitalWrite(b6, HIGH); digitalWrite(b5, HIGH); delay(100);
+    digitalWrite(b4, HIGH); digitalWrite(b3, HIGH); delay(100);
+    digitalWrite(b2, HIGH); digitalWrite(b1, HIGH); delay(100);
+    digitalWrite(b8, LOW); digitalWrite(b7, LOW); digitalWrite(b6, LOW); digitalWrite(b5, LOW);
+    digitalWrite(b4, LOW); digitalWrite(b3, LOW); digitalWrite(b2, LOW); digitalWrite(b1, LOW);
+}</code></pre>
+
+                    <h2>Kesimpulan</h2>
+                    <p>Proyek Dancing LED ini berhasil diimplementasikan menggunakan Wemos D1 Mini, menunjukkan kemampuan dasar dalam pemrograman <em>embedded system</em> dan kontrol aktuator. Penggunaan platform ESP8266 membuka potensi untuk pengembangan lebih lanjut, seperti integrasi kontrol melalui Wi-Fi (misalnya, melalui antarmuka web atau aplikasi seluler) untuk mengubah pola atau kecepatan LED secara nirkabel. Proyek ini menjadi fondasi yang kuat untuk eksplorasi lebih lanjut dalam bidang IoT dan otomatisasi.</p>
+                </div>
+
+
+                    </div>
+            <a href="index.html#projects" class="back-to-home"><i class="fas fa-arrow-left"></i> Kembali ke Daftar Proyek</a>
+        </div>
+    </section>
+
+    <!-- Footer (Copied from index.html) -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Vicky Adrian Pratama. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript (Copied from index.html) -->
+    <script src="main.js"></script>
+</body>
+</html>
