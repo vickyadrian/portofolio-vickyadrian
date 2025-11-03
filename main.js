@@ -64,9 +64,9 @@ const backToTopButton = document.getElementById('back-to-top');
 
 window.addEventListener('scroll', () => {
     if (window.pageYOffset > 300) {
-        backToTopButton.classList.add('active');
+        backToTopButton.classList.add('show');
     } else {
-        backToTopButton.classList.remove('active');
+        backToTopButton.classList.remove('show');
     }
 });
 
@@ -216,9 +216,9 @@ window.addEventListener('scroll', () => {
     });
     
     navLinks.forEach(link => {
-        link.classList.remove('active');
+        link.classList.remove('active-link');
         if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
+            link.classList.add('active-link');
         }
     });
 });
@@ -301,3 +301,14 @@ if ('link' in document) {
         document.head.appendChild(linkElement);
     });
 }
+
+// ERROR CHECK
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM Ready, starting typing effect...");
+    if (textArray.length && typedTextSpan) {
+        console.log("Typed element found!");
+        setTimeout(type, 1000);
+    } else {
+        console.warn("Typed text span not found!");
+    }
+});
