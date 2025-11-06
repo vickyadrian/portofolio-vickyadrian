@@ -10,7 +10,7 @@
     --primary-dark: #4f46e5; /* Indigo 600 */
     --secondary: #8b5cf6; /* Violet 500 */
     --secondary-dark: #7c3aed; /* Violet 600 */
-    --accent: #ec4899; /* Pink 500 - Used for reference site's highlight color */
+    --accent: #FFC400; /* Pink 500 - Used for reference site's highlight color */
     --text: #e2e8f0; /* Slate 200 */
     --text-muted: #94a3b8; /* Slate 400 */
     --text-light: #cbd5e1; /* Slate 300 */
@@ -29,6 +29,8 @@
     --space-3xl: 6rem;    /* 96px */
     
     /* Typography - Standardized Sizes */
+    --font-xxxs: 0.25;       /* 4px */
+    --font-xxs: 0.5rem;      /* 8px */
     --font-xs: 0.75rem;      /* 12px */
     --font-sm: 0.875rem;     /* 14px */
     --font-base: 1rem;       /* 16px */
@@ -189,42 +191,41 @@ body::before {
     font-weight: 500;
 }
 
-/* Navigation Menu */
-.nav-menu {
+/* Navigation Menu */.nav-menu {
     display: flex;
     list-style: none;
-    gap: var(--space-sm); /* Reduced gap for a tighter look */
+    gap: var(--space-lg); /* Adjusted gap */
 }
 
 .nav-link {
     text-decoration: none;
     color: var(--text);
     font-weight: 500;
-    font-size: var(--font-sm); /* Smaller font size */
-    transition: all var(--transition-normal);
+    font-size: var(--font-base);
+    transition: color var(--transition-normal);
     position: relative;
-    padding: var(--space-xs) var(--space-sm); /* Added padding for button-like appearance */
-    border-radius: var(--radius-sm);
-    border: 1px solid transparent;
-    background-color: transparent;
+    padding: var(--space-xs) 0;
 }
 
 .nav-link::after {
-    content: none; /* Removed underline effect */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    bottom: -5px;
+    left: 0;
+    transition: width var(--transition-normal);
 }
 
 .nav-link:hover {
-    color: var(--accent); /* Highlight color on hover */
-    background-color: rgba(236, 72, 153, 0.1); /* Light pink background on hover */
-    border-color: var(--accent);
+    color: var(--primary);
 }
 
-/* Active link style - using the accent color for the active state */
-.nav-link.active {
-    color: var(--accent);
-    background-color: rgba(236, 72, 153, 0.1);
-    border-color: var(--accent);
+.nav-link:hover::after {
+    width: 100%;
 }
+
 
 /* Mobile Menu */
 .mobile-menu {
@@ -259,40 +260,35 @@ body::before {
     .header-content {
         padding: var(--space-base) var(--space-md);
     }
-
-    .navbar {
-        position: relative;
-    }
-
     .nav-menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: 0;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 40%;
+        height: 70%;
+        border-radius: var(--radius-lg);
         background-color: var(--darker-bg);
-        width: 200px;
-        padding: var(--space-base);
-        border-radius: var(--radius-md);
-        box-shadow: var(--shadow-lg);
-        border: 1px solid var(--border-color);
-        gap: var(--space-base);
+        flex-direction: column;
+        padding: var(--space-2xl) var(--space-md);
+        gap: var(--space-lg);
+        transition: right var(--transition-normal);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     }
 
     .nav-menu.active {
-        display: flex;
+        right: 0;
     }
 
     .nav-link {
-        padding: var(--space-sm) var(--space-base);
-        font-size: var(--font-base);
-        width: 100%;
-        text-align: center;
+        font-size: var(--font-md);
+        padding: var(--space-xs) 0;
     }
 
     .mobile-menu {
         display: flex;
+        z-index: 1001;
     }
+  
 }
 
 /* ============================================
@@ -534,10 +530,17 @@ body::before {
 }
 
 .education-level {
-    font-size: var(--font-sm);
+  display: inline-block;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: var(--space-xxs) var(--space-sm); /* Adjusted padding */
+    border-radius: var(--radius-full);
+    font-size: var(--font-xs);
     font-weight: 600;
-    color: var(--accent);
-    margin-bottom: var(--space-xxs);
+    margin-bottom: var(--space-base);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    
 }
 
 .education-name {
@@ -568,6 +571,11 @@ body::before {
 
 /* Media Query for Education Timeline */
 @media (max-width: 768px) {
+  
+    .education-level{
+        font-size: var(--font-xxs);
+        font-weight: 600;
+    }
     .education-timeline::after {
         left: 31px;
     }
@@ -712,10 +720,18 @@ body::before {
 }
 
 .project-category {
-    font-size: var(--font-sm);
-    color: var(--accent);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary);
+    padding: var(--space-xxs) var(--space-sm); /* Adjusted padding */
+    border-radius: var(--radius-full);
+    font-size: var(--font-xs);
     font-weight: 600;
-    margin-bottom: var(--space-sm);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    
 }
 
 .project-description {
@@ -792,7 +808,7 @@ body::before {
 
 .certificate-issuer {
     font-size: var(--font-sm);
-    color: var(--accent);
+    color: var(--primary-dark);
     font-weight: 600;
     margin-bottom: var(--space-sm);
 }
@@ -959,6 +975,9 @@ body::before {
         font-size: var(--font-2xl);
     }
 
+    .hero-description {
+      display: none;
+    }
     .hero-title {
         font-size: var(--font-3xl);
         letter-spacing: -1px;
