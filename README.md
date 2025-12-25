@@ -1,10 +1,10 @@
-# Ringkasan Perubahan dan Saran untuk Portofolio Web
+# Ringkasan Perubahan
 
-Dokumen ini merangkum perubahan yang telah dilakukan pada file proyek Anda, serta memberikan saran fitur mendatang dan ide tambahan untuk meningkatkan portofolio web Anda secara keseluruhan.
+Dokumen ini merangkum perubahan yang telah dilakukan pada file proyek Saya, serta fitur mendatang dan ide tambahan untuk meningkatkan portofolio web Saya.
 
 ## 1. Perubahan yang Telah Dilakukan
 
-Perubahan telah dilakukan sesuai permintaan Anda, dengan fokus pada peningkatan tata letak, profesionalisme, dan responsivitas.
+Perubahan dengan fokus pada peningkatan tata letak, profesionalisme, dan responsivitas.
 
 ### 1.1. Proyek "Dancing LED" (`dancing-led.html`)
 
@@ -25,13 +25,13 @@ Perubahan telah dilakukan sesuai permintaan Anda, dengan fokus pada peningkatan 
 
 ---
 
-## 2. Saran Fitur Mendatang (Upcoming Features)
+## 2. Fitur Mendatang (Upcoming Features)
 
-Berikut adalah saran fitur yang dapat Anda pertimbangkan untuk ditambahkan ke proyek "Dancing LED" dan portofolio Anda secara umum.
+Berikut adalah saran fitur Saya pertimbangkan untuk ditambahkan ke proyek "Dancing LED" dan portofolio secara umum.
 
 ### 2.1. Untuk Proyek "Dancing LED"
 
-Fitur-fitur ini akan meningkatkan nilai teknis proyek dan menunjukkan kemampuan Anda dalam integrasi IoT yang lebih kompleks.
+Fitur-fitur ini akan meningkatkan nilai teknis proyek dan menunjukkan kemampuan Saya dalam integrasi IoT yang lebih kompleks.
 
 | Fitur | Deskripsi | Manfaat |
 | :--- | :--- | :--- |
@@ -42,7 +42,7 @@ Fitur-fitur ini akan meningkatkan nilai teknis proyek dan menunjukkan kemampuan 
 
 ### 2.2. Untuk Portofolio Web (Umum)
 
-Ide-ide ini akan meningkatkan pengalaman pengguna dan profesionalisme portofolio Anda.
+Ide-ide ini akan meningkatkan pengalaman pengguna dan profesionalisme portofolio Saya.
 
 | Ide Tambahan | Deskripsi | Manfaat |
 | :--- | :--- | :--- |
