@@ -1,60 +1,127 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const userInput = document.getElementById("userInput");
-  const submitBtn = document.getElementById("submitBtn");
-  const loader = document.getElementById("loader");
-  const responseContainer = document.getElementById("responseContainer");
-  const aiResponse = document.getElementById("aiResponse");
-  const btnText = submitBtn.querySelector("span");
+/* ============================================
+   PORTFOLIO MAIN JAVASCRIPT (REFINED)
+   Author: Vicky Adrian
+   ============================================ */
 
-  function setLoading(state) {
-    submitBtn.disabled = state;
-    loader.style.display = state ? "block" : "none";
-    btnText.style.display = state ? "none" : "block";
-  }
+(() => {
+  'use strict';
 
-  async function generateResponse() {
-    const message = userInput.value.trim();
-    if (!message) return;
+  document.addEventListener('DOMContentLoaded', () => {
 
-    setLoading(true);
-    responseContainer.classList.add("hidden");
+    /* ================= TYPING EFFECT ================= */
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+    const typedTextSpan = document.querySelector('.typed-text');
+    const textArray = ['Network Engineer', 'Web Developer', 'Tech Enthusiast'];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typingLoop() {
+      if (!typedTextSpan) return;
+
+      const currentText = textArray[textIndex];
+      typedTextSpan.textContent = isDeleting
+        ? currentText.substring(0, charIndex--)
+        : currentText.substring(0, charIndex++);
+
+      if (!isDeleting && charIndex === currentText.length) {
+        setTimeout(() => (isDeleting = true), 1500);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % textArray.length;
+      }
+
+      setTimeout(typingLoop, isDeleting ? 50 : 100);
+    }
+
+    typingLoop();
+
+    /* ================= MOBILE MENU ================= */
+
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('menu');
+
+    mobileMenu?.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+      navMenu?.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link =>
+      link.addEventListener('click', () => {
+        mobileMenu?.classList.remove('active');
+        navMenu?.classList.remove('active');
+      })
+    );
+
+    /* ================= BACK TO TOP ================= */
+
+    const backToTop = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      backToTop?.classList.toggle('show', window.scrollY > 300);
+    });
+
+    backToTop?.addEventListener('click', () =>
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    );
+
+    /* ================= PROGRESS BAR ================= */
+
+    const progressBars = document.querySelectorAll('.progress-bar');
+
+    const barObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bar = entry.target;
+            bar.style.width = bar.dataset.progress;
+            barObserver.unobserve(bar);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    progressBars.forEach(bar => {
+      bar.style.width = '0';
+      barObserver.observe(bar);
+    });
+
+    /* ================= SMOOTH SCROLL ================= */
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (!target) return;
+
+        e.preventDefault();
+        const offset = document.querySelector('.header')?.offsetHeight || 0;
+        window.scrollTo({
+          top: target.offsetTop - offset,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    /* ================= LAZY LOAD IMAGES ================= */
+
+    if ('IntersectionObserver' in window) {
+      const imgObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('loaded');
+            imgObserver.unobserve(img);
+          }
+        });
       });
 
-      const raw = await res.text();
-      let data;
-
-      try {
-        data = JSON.parse(raw);
-      } catch {
-        throw new Error("Server returned non-JSON response");
-      }
-
-      if (!res.ok) {
-        throw new Error(data.error || "Request failed");
-      }
-
-      aiResponse.textContent = data.reply;
-      responseContainer.classList.remove("hidden");
-    } catch (err) {
-      aiResponse.textContent = `Error: ${err.message}`;
-      responseContainer.classList.remove("hidden");
-      console.error(err);
-    } finally {
-      setLoading(false);
+      document.querySelectorAll('img[data-src]').forEach(img =>
+        imgObserver.observe(img)
+      );
     }
-  }
 
-  submitBtn.addEventListener("click", generateResponse);
-
-  userInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-      generateResponse();
-    }
+    console.log('Portfolio initialized cleanly');
   });
-});
+})();

@@ -40,6 +40,9 @@
                 VA
             </a>
             <nav class="navbar" aria-label="Main navigation">
+              <!--   <button id="theme-toggle" aria-label="Toggle dark mode">
+                   🌙
+                </button> -->
                 <ul id="menu" class="nav-menu">
                     <li><a href="#home" class="nav-link active">Home</a></li> <!-- Added active class to Home -->
                     <li><a href="#about" class="nav-link">About</a></li>
@@ -86,19 +89,18 @@
             <div class="about-content">
                 <div class="about-text">
                     <p class="about-paragraph">
-                        Hello! I'm Vicky Adrian Pratama, a passionate Network Engineer and Web Developer with extensive experience in both fields. I specialize in creating robust network infrastructures and designing interactive, user-friendly websites that solve real-world problems.
+                        I am a vocational high school student with a strong focus on computer networking and web development.
                     </p>
                     <p class="about-paragraph">
-                        With a strong foundation in programming languages like Python, PHP, HTML, CSS, and JavaScript, coupled with expertise in network routing and Arduino development, I bring a unique blend of technical skills to every project. My approach combines technical excellence with creative problem-solving.
+                      I enjoy breaking down technical problems, understanding how systems work, and building practical solutions—whether it’s configuring networks, developing web interfaces, or experimenting with automation.
                     </p>
                     <p class="about-paragraph">
-                        I'm constantly exploring new technologies and methodologies to enhance my skill set and deliver cutting-edge solutions. Whether it's building scalable web applications or designing complex network systems, I'm committed to delivering excellence and creating meaningful impact through technology.
+                      I value clarity, efficiency, and continuous improvement. For me, technology is not about trends, but about solving real problems in a reliable way.
                     </p>
-                    <a href="#contact" class="btn btn-primary" role="button">Get In Touch</a>
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
 
     <!-- Education Section -->
     <section id="education" class="section section-education">
@@ -187,7 +189,7 @@
                         Experienced in PHP development for creating dynamic web applications and content management systems.
                     </p>
                     <div class="skill-progress">
-                        <div class="progress-bar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" data-progress="85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <span class="skill-percentage">85%</span>
                 </div>
@@ -202,7 +204,7 @@
                         Expert in creating responsive, accessible, and modern web layouts using HTML5 and CSS3.
                     </p>
                     <div class="skill-progress">
-                        <div class="progress-bar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" data-progress="95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <span class="skill-percentage">95%</span>
                 </div>
@@ -217,7 +219,7 @@
                         Skilled in front-end development with vanilla JavaScript and modern frameworks like React and Vue.js.
                     </p>
                     <div class="skill-progress">
-                        <div class="progress-bar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" data-progress="80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <span class="skill-percentage">80%</span>
                 </div>
@@ -232,7 +234,7 @@
                         Proficient in network design, configuration, and troubleshooting (Cisco, Mikrotik) with a focus on security and performance.
                     </p>
                     <div class="skill-progress">
-                        <div class="progress-bar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" data-progress="90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <span class="skill-percentage">90%</span>
                 </div>
@@ -247,7 +249,7 @@
                         Experience in developing IoT solutions using platforms like Arduino and Raspberry Pi, including sensor integration and data processing.
                     </p>
                     <div class="skill-progress">
-                        <div class="progress-bar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" data-progress="75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <span class="skill-percentage">75%</span>
                 </div>
@@ -264,7 +266,7 @@
                 <div class="project-card" aria-label="Project: Automatic Toll Gate">
                     <img src="assets/images/project-automatic-toll-gate.png" alt="Automatic Toll Gate Project" class="project-image" loading="lazy">
                     <div class="project-content">
-                        <div class="project-category">IoT & Embedded Systems</div>
+
                         <h3 class="project-title">Automatic Toll Gate</h3>
                         <p class="project-description">
                             A prototype of an automatic toll gate system using Wemos D1 Mini, HC-SR04 sensor, and servo motor to detect vehicles and automatically open the gate, simulating a contactless toll system.
@@ -280,7 +282,6 @@
                 <div class="project-card" aria-label="Project: Dancing LED">
                     <img src="assets/images/project-dancing-led.jpg" alt="Dancing LED Project" class="project-image" loading="lazy">
                     <div class="project-content">
-                        <div class="project-category">Embedded Systems</div>
                         <h3 class="project-title">Dancing LED</h3>
                         <p class="project-description">
                             A project involving programming an array of LEDs to display various dynamic and interactive light patterns using Wemos D1 mini and timing.
