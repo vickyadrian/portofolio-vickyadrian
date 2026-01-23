@@ -14,14 +14,7 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "API key not configured" });
   }
 
-  // Build messages array
-  const messages = [`
-Website ini dibuat oleh Vicky Adrian Pratama, seorang siswa jurusan Teknik Jaringan Komputer (TKJ) di SMK Negeri 1 Kendal. Sebagai seorang yang bersemangat di dunia teknologi, khususnya dalam pengembangan web dan jaringan komputer, Vicky berusaha untuk terus mengasah keterampilan dalam berbagai bidang, mulai dari desain web hingga pemrograman. Website ini menjadi salah satu wadah bagi Vicky untuk menampilkan proyek-proyek yang dikerjakan, termasuk eksperimen dengan teknologi seperti AI dan Machine Learning.
-
-Website ini juga menampilkan chatbot AI yang dibangun menggunakan teknologi GPT-4o Mini, sebuah model bahasa AI yang dapat memahami dan menghasilkan teks dalam berbagai konteks.
-
-Sebagai seorang yang menggemari freelance, bug hunting, dan web development, Vicky terus belajar dan mengembangkan berbagai proyek termasuk ESP8266 dan IoT.
-`];
+  const messages = [];
 
   if (Array.isArray(history)) {
     for (const msg of history) {
@@ -39,7 +32,7 @@ Sebagai seorang yang menggemari freelance, bug hunting, dan web development, Vic
 
   try {
     const response = await fetch(
-      "https://api.bytez.com/models/v2/openai/v1/chat/completions",
+      "https://api.bytez.com/v1/chat/completions",
       {
         method: "POST",
         headers: {
@@ -56,12 +49,18 @@ Sebagai seorang yang menggemari freelance, bug hunting, dan web development, Vic
 
     const data = await response.json();
 
-    const botMessage =
-      data?.choices?.[0]?.message?.content ||
-      "Saya tidak dapat memproses permintaan.";
+    // Debug: jika error dari Bytez, tampilkan
+    if (data.error) {
+      console.error("BYTEZ ERROR:", data.error);
+      return res.status(500).json({
+        error: data.error.message || "Bytez API error",
+      });
+    }
+
+    const botMessage = data?.choices?.[0]?.message?.content;
 
     return res.status(200).json({
-      response: botMessage,
+      response: botMessage || "Tidak ada respon dari AI.",
     });
 
   } catch (error) {
