@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -14,20 +14,17 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "API key not configured" });
   }
 
-  // Format pesan ke standar OpenAI-style
   const messages = [];
 
-  // Masukkan history lama jika ada
   if (Array.isArray(history)) {
-    history.forEach(msg => {
+    for (const msg of history) {
       messages.push({
         role: msg.role,
         content: msg.content
       });
-    });
+    }
   }
 
-  // Tambahkan pesan user terkini
   messages.push({
     role: "user",
     content: message
@@ -35,6 +32,36 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
+      "https://api.bytez.com/models/v2/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages,
+          temperature: 0.7
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    const botMessage =
+      data?.choices?.[0]?.message?.content ||
+      "Saya tidak dapat memproses permintaan.";
+
+    return res.status(200).json({
+      response: botMessage
+    });
+
+  } catch (error) {
+    console.error("Chat API Error:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};    const response = await fetch(
       "https://api.bytez.com/models/v2/openai/v1/chat/completions",
       {
         method: "POST",
