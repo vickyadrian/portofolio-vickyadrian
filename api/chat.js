@@ -14,6 +14,7 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "API key not configured" });
   }
 
+  // Build messages array
   const messages = [];
 
   if (Array.isArray(history)) {
@@ -35,6 +36,33 @@ module.exports = async function handler(req, res) {
       "https://api.bytez.com/models/v2/openai/v1/chat/completions",
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: messages,
+          temperature: 0.7
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    const botMessage =
+      data?.choices?.[0]?.message?.content ||
+      "Saya tidak dapat memproses permintaan.";
+
+    return res.status(200).json({
+      response: botMessage
+    });
+
+  } catch (error) {
+    console.error("AI Server Error:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};        method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${apiKey}`
