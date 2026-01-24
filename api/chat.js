@@ -43,6 +43,7 @@ module.exports = async function handler(req, res) {
           model: "openai/gpt-4o-mini",
           messages: messages,
           temperature: 0.7,
+          max_tokens: 4096
         }),
       }
     );
