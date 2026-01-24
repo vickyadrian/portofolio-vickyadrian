@@ -153,7 +153,7 @@
  * PENTING: Ganti dengan endpoint backend Anda sendiri
  */
 const CHATBOT_CONFIG = {
-  API_ENDPOINT: '/api/chat', // Backend aman
+  API_ENDPOINT: 'https://portofolio-vickyadrian.vercel.app/api/chat', // Backend aman
   TIMEOUT: 300,
   MAX_RETRIES: 3,
 };
