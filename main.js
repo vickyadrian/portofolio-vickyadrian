@@ -154,7 +154,7 @@
  */
 const CHATBOT_CONFIG = {
   API_ENDPOINT: 'https://portofolio-vickyadrian.vercel.app/api/chat', // Backend aman
-  TIMEOUT: 300,
+  TIMEOUT: 30000,
   MAX_RETRIES: 3,
 };
 
