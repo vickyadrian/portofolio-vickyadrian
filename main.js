@@ -154,7 +154,7 @@
  */
 const CHATBOT_CONFIG = {
   API_ENDPOINT: '/api/chat', // Backend aman
-  TIMEOUT: 30000,
+  TIMEOUT: 300,
   MAX_RETRIES: 3,
 };
 
