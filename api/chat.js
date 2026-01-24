@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
 
   try {
     const response = await fetch(
-      "https://api.bytez.com/v1/chat/completions",
+      "https://api.bytez.com/models/v2/openai/v1/chat/completions",
       {
         method: "POST",
         headers: {
@@ -40,7 +40,7 @@ module.exports = async function handler(req, res) {
           "Authorization": `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "gpt-4o-mini",
+          model: "openai/gpt-4o-mini",
           messages: messages,
           temperature: 0.7,
         }),
