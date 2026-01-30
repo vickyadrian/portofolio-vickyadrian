@@ -125,12 +125,12 @@
     console.log('Portfolio initialized cleanly');
   });
 })();
-    /* ================= DETTA CHATBOT ================= */
+
+/* ================= DETTA CHATBOT ================= */
 
 const CHATBOT_CONFIG = {
-  API_ENDPOINT: 'https://portofolio-vickyadrian.vercel.app/api/chat', // Backend aman
+  API_ENDPOINT: '/api/chat', // Menggunakan path relatif agar bekerja di Vercel/Local
   TIMEOUT: 30000,
-  MAX_RETRIES: 3,
 };
 
 const DOM_ELEMENTS = {
@@ -142,13 +142,11 @@ const DOM_ELEMENTS = {
   closeBtn: null,
   sendBtn: null,
   loadingIndicator: null,
-  notificationBadge: null,
 };
 
 const CHATBOT_STATE = {
   isOpen: false,
   isLoading: false,
-  messageCount: 0,
   conversationHistory: [],
 };
 
@@ -166,13 +164,12 @@ function cacheDOMElements() {
   DOM_ELEMENTS.closeBtn = document.getElementById('chatbot-close-btn');
   DOM_ELEMENTS.sendBtn = document.getElementById('send-btn');
   DOM_ELEMENTS.loadingIndicator = document.getElementById('loading-indicator');
-  DOM_ELEMENTS.notificationBadge = document.getElementById('notification-badge');
 }
 
 function setupEventListeners() {
-  DOM_ELEMENTS.button.addEventListener('click', toggleChatPanel);
-  DOM_ELEMENTS.closeBtn.addEventListener('click', closeChatPanel);
-  DOM_ELEMENTS.form.addEventListener('submit', handleSendMessage);
+  DOM_ELEMENTS.button?.addEventListener('click', toggleChatPanel);
+  DOM_ELEMENTS.closeBtn?.addEventListener('click', closeChatPanel);
+  DOM_ELEMENTS.form?.addEventListener('submit', handleSendMessage);
 }
 
 function toggleChatPanel() {
@@ -181,15 +178,15 @@ function toggleChatPanel() {
 
 function openChatPanel() {
   CHATBOT_STATE.isOpen = true;
-  DOM_ELEMENTS.panel.classList.add('open');
-  DOM_ELEMENTS.button.classList.add('active');
-  DOM_ELEMENTS.input.focus();
+  DOM_ELEMENTS.panel?.classList.add('open');
+  DOM_ELEMENTS.button?.classList.add('active');
+  DOM_ELEMENTS.input?.focus();
 }
 
 function closeChatPanel() {
   CHATBOT_STATE.isOpen = false;
-  DOM_ELEMENTS.panel.classList.remove('open');
-  DOM_ELEMENTS.button.classList.remove('active');
+  DOM_ELEMENTS.panel?.classList.remove('open');
+  DOM_ELEMENTS.button?.classList.remove('active');
 }
 
 function handleSendMessage(event) {
@@ -198,19 +195,19 @@ function handleSendMessage(event) {
   const text = DOM_ELEMENTS.input.value.trim();
   if (!text || CHATBOT_STATE.isLoading) return;
 
+  // 1. Tambahkan ke UI
   addMessageToChat(text, 'user');
+  
+  // 2. Reset input
   DOM_ELEMENTS.input.value = '';
 
-  CHATBOT_STATE.conversationHistory.push({
-    role: 'user',
-    content: text,
-    timestamp: new Date(),
-  });
-
+  // 3. Kirim ke API
   sendMessageToAPI(text);
 }
 
 function addMessageToChat(text, sender) {
+  if (!DOM_ELEMENTS.messages) return;
+
   const div = document.createElement('div');
   div.className = `chatbot-message ${sender}-message`;
 
@@ -221,23 +218,36 @@ function addMessageToChat(text, sender) {
   div.appendChild(content);
   DOM_ELEMENTS.messages.appendChild(div);
 
+  // Auto scroll ke bawah
   DOM_ELEMENTS.messages.scrollTop = DOM_ELEMENTS.messages.scrollHeight;
 }
 
+function toggleLoading(show) {
+  CHATBOT_STATE.isLoading = show;
+  if (DOM_ELEMENTS.loadingIndicator) {
+    DOM_ELEMENTS.loadingIndicator.style.display = show ? 'flex' : 'none';
+  }
+  if (DOM_ELEMENTS.input) DOM_ELEMENTS.input.disabled = show;
+  if (DOM_ELEMENTS.sendBtn) DOM_ELEMENTS.sendBtn.disabled = show;
+}
+
 async function sendMessageToAPI(message) {
-  CHATBOT_STATE.isLoading = true;
-  DOM_ELEMENTS.input.disabled = true;
-  DOM_ELEMENTS.sendBtn.disabled = true;
+  toggleLoading(true);
+
+  // Update history sebelum kirim
+  const currentHistory = CHATBOT_STATE.conversationHistory.map(msg => ({
+    role: msg.role,
+    content: msg.content
+  }));
 
   const payload = {
     message: message,
-    conversationId: getConversationId(),
-    history: CHATBOT_STATE.conversationHistory,
+    history: currentHistory,
   };
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), CHATBOT_CONFIG.TIMEOUT);
+    const timeoutId = setTimeout(() => controller.abort(), CHATBOT_CONFIG.TIMEOUT);
 
     const response = await fetch(CHATBOT_CONFIG.API_ENDPOINT, {
       method: 'POST',
@@ -246,34 +256,30 @@ async function sendMessageToAPI(message) {
       body: JSON.stringify(payload),
     });
 
-    clearTimeout(timeout);
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status}`);
+    }
 
     const data = await response.json();
     const botReply = data.response || "Maaf, saya tidak dapat memproses pesan.";
 
+    // Update State History (User & Bot)
+    CHATBOT_STATE.conversationHistory.push({ role: 'user', content: message });
+    CHATBOT_STATE.conversationHistory.push({ role: 'bot', content: botReply });
+
+    // Tampilkan di UI
     addMessageToChat(botReply, 'bot');
 
-    CHATBOT_STATE.conversationHistory.push({
-      role: 'bot',
-      content: botReply,
-      timestamp: new Date(),
-    });
-
   } catch (err) {
-    addMessageToChat("Kesalahan koneksi. Coba lagi.", "bot");
+    console.error("Chatbot Error:", err);
+    const errorMessage = err.name === 'AbortError' 
+      ? "Respon terlalu lama. Silakan coba lagi." 
+      : "Terjadi kesalahan koneksi. Pastikan internet Anda stabil.";
+    addMessageToChat(errorMessage, "bot");
   } finally {
-    CHATBOT_STATE.isLoading = false;
-    DOM_ELEMENTS.input.disabled = false;
-    DOM_ELEMENTS.sendBtn.disabled = false;
-    DOM_ELEMENTS.input.focus();
+    toggleLoading(false);
+    DOM_ELEMENTS.input?.focus();
   }
-}
-
-function getConversationId() {
-  let id = localStorage.getItem('detta_conversation_id');
-  if (!id) {
-    id = "conv_" + Date.now();
-    localStorage.setItem('detta_conversation_id', id);
-  }
-  return id;
 }
