@@ -50,13 +50,3 @@ Ide-ide ini akan meningkatkan pengalaman pengguna dan profesionalisme portofolio
 | **Filter Proyek** | Jika jumlah proyek bertambah, tambahkan filter (misalnya, "IoT", "Web Dev", "Network") pada *Projects Section*. | Memudahkan pengunjung untuk menemukan proyek yang relevan dengan minat mereka, menunjukkan **Keterampilan Frontend** yang terorganisir. |
 | **Optimasi Gambar Sertifikat** | Menggunakan format gambar modern (seperti WebP) dan memastikan ukuran file sekecil mungkin tanpa mengorbankan kualitas. | Meningkatkan **Kecepatan Muat** (Page Speed) situs, yang penting untuk SEO dan UX. |
 | **Animasi *Scroll* Ringan** | Menambahkan animasi sederhana (misalnya, *fade-in* atau *slide-up*) pada setiap *section* saat di-*scroll* untuk memberikan kesan dinamis dan modern. | Meningkatkan **Estetika** dan **Keterlibatan Pengguna** (Engagement). |
-
----
-
-## 3. Catatan Penting
-
-*   **Tidak Ada Perubahan Lain:** Sesuai permintaan, tidak ada perubahan lain yang dilakukan pada `index.html` selain penambahan *Certificates Section* dan penyesuaian navigasi.
-*   **Penggunaan Gambar Sertifikat:** Section *Certificates* saat ini menggunakan gambar yang tersedia (`assets/certified/RCNA - Vicky Adrian Pratama.jpg`). Anda dapat menambahkan lebih banyak sertifikat dengan format yang sama.
-*   **Pembaruan `main.js`:** Jika Anda mengimplementasikan fitur-fitur seperti *Dark/Light Mode* atau *Scroll Animation*, file `main.js` perlu diperbarui untuk menangani logika interaksi tersebut.
-
-Semua file yang telah dimodifikasi (termasuk `dancing-led.html`, `index.html`, dan `assets/css/style.css`) telah siap. Silakan tinjau perubahannya.
