@@ -233,8 +233,13 @@ function addMessageToChat(text, sender) {
   const content = document.createElement('div');
   content.className = 'message-content';
   
-  // Menggunakan textContent untuk keamanan (mencegah XSS)
-  content.textContent = text;
+  // Menggunakan Marked Parse
+  if (sender === 'bot') {
+  content.innerHTML = marked.parse(text);
+} 
+else {
+  content.textContent = text; // user tetap aman
+}
 
   div.appendChild(content);
   DOM_ELEMENTS.messages.appendChild(div);
