@@ -1,6 +1,7 @@
 /* ============================================
    PORTFOLIO MAIN JAVASCRIPT (REFINED)
    Author: Vicky Adrian
+   Refactored by: Manus AI
    ============================================ */
 
 (() => {
@@ -9,7 +10,6 @@
   document.addEventListener('DOMContentLoaded', () => {
 
     /* ================= TYPING EFFECT ================= */
-
     const typedTextSpan = document.querySelector('.typed-text');
     const textArray = ['Network Engineer', 'Web Developer', 'Tech Enthusiast'];
     let textIndex = 0;
@@ -37,7 +37,6 @@
     typingLoop();
 
     /* ================= MOBILE MENU ================= */
-
     const mobileMenu = document.getElementById('mobile-menu');
     const navMenu = document.getElementById('menu');
 
@@ -54,7 +53,6 @@
     );
 
     /* ================= BACK TO TOP ================= */
-
     const backToTop = document.getElementById('back-to-top');
 
     window.addEventListener('scroll', () => {
@@ -66,7 +64,6 @@
     );
 
     /* ================= PROGRESS BAR ================= */
-
     const progressBars = document.querySelectorAll('.progress-bar');
 
     const barObserver = new IntersectionObserver(
@@ -88,7 +85,6 @@
     });
 
     /* ================= SMOOTH SCROLL ================= */
-
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
         const target = document.querySelector(anchor.getAttribute('href'));
@@ -104,7 +100,6 @@
     });
 
     /* ================= LAZY LOAD IMAGES ================= */
-
     if ('IntersectionObserver' in window) {
       const imgObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -128,11 +123,17 @@
 
 /* ================= DETTA CHATBOT ================= */
 
+/**
+ * Konfigurasi Chatbot
+ */
 const CHATBOT_CONFIG = {
-  API_ENDPOINT: '/api/chat', // Menggunakan path relatif agar bekerja di Vercel/Local
+  API_ENDPOINT: '/api/chat',
   TIMEOUT: 30000,
 };
 
+/**
+ * Cache elemen DOM untuk performa dan kemudahan akses
+ */
 const DOM_ELEMENTS = {
   button: null,
   panel: null,
@@ -144,10 +145,14 @@ const DOM_ELEMENTS = {
   loadingIndicator: null,
 };
 
+/**
+ * State Management Chatbot
+ * Memisahkan data dari UI untuk konsistensi
+ */
 const CHATBOT_STATE = {
   isOpen: false,
   isLoading: false,
-  conversationHistory: [],
+  conversationHistory: [], // Menyimpan riwayat chat agar AI memiliki konteks
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -167,8 +172,12 @@ function cacheDOMElements() {
 }
 
 function setupEventListeners() {
+  // Gunakan optional chaining untuk menghindari error jika elemen tidak ditemukan
   DOM_ELEMENTS.button?.addEventListener('click', toggleChatPanel);
   DOM_ELEMENTS.closeBtn?.addEventListener('click', closeChatPanel);
+  
+  // Mencegah duplikasi event listener jika script dimuat ulang
+  DOM_ELEMENTS.form?.removeEventListener('submit', handleSendMessage);
   DOM_ELEMENTS.form?.addEventListener('submit', handleSendMessage);
 }
 
@@ -189,22 +198,32 @@ function closeChatPanel() {
   DOM_ELEMENTS.button?.classList.remove('active');
 }
 
+/**
+ * Handler saat user mengirim pesan
+ */
 function handleSendMessage(event) {
   event.preventDefault();
 
   const text = DOM_ELEMENTS.input.value.trim();
+  
+  // Validasi: Jangan kirim jika kosong atau sedang loading
   if (!text || CHATBOT_STATE.isLoading) return;
 
-  // 1. Tambahkan ke UI
+  // 1. Tampilkan pesan user di UI
   addMessageToChat(text, 'user');
   
-  // 2. Reset input
+  // 2. Reset input field segera setelah kirim
   DOM_ELEMENTS.input.value = '';
 
-  // 3. Kirim ke API
+  // 3. Kirim ke API untuk mendapatkan respon AI
   sendMessageToAPI(text);
 }
 
+/**
+ * Menambahkan bubble chat ke container
+ * @param {string} text - Isi pesan
+ * @param {string} sender - 'user' atau 'bot'
+ */
 function addMessageToChat(text, sender) {
   if (!DOM_ELEMENTS.messages) return;
 
@@ -213,39 +232,44 @@ function addMessageToChat(text, sender) {
 
   const content = document.createElement('div');
   content.className = 'message-content';
+  
+  // Menggunakan textContent untuk keamanan (mencegah XSS)
   content.textContent = text;
 
   div.appendChild(content);
   DOM_ELEMENTS.messages.appendChild(div);
 
-  // Auto scroll ke bawah
+  // Auto scroll ke pesan terbaru
   DOM_ELEMENTS.messages.scrollTop = DOM_ELEMENTS.messages.scrollHeight;
 }
 
+/**
+ * Mengatur status loading UI
+ */
 function toggleLoading(show) {
   CHATBOT_STATE.isLoading = show;
   if (DOM_ELEMENTS.loadingIndicator) {
     DOM_ELEMENTS.loadingIndicator.style.display = show ? 'flex' : 'none';
   }
+  // Disable input & button saat loading untuk mencegah spam
   if (DOM_ELEMENTS.input) DOM_ELEMENTS.input.disabled = show;
   if (DOM_ELEMENTS.sendBtn) DOM_ELEMENTS.sendBtn.disabled = show;
 }
 
+/**
+ * Komunikasi dengan Backend API
+ */
 async function sendMessageToAPI(message) {
   toggleLoading(true);
 
-  // Update history sebelum kirim
-  const currentHistory = CHATBOT_STATE.conversationHistory.map(msg => ({
-    role: msg.role,
-    content: msg.content
-  }));
-
+  // Payload yang dikirim ke backend mencakup pesan baru dan riwayat sebelumnya
   const payload = {
     message: message,
-    history: currentHistory,
+    history: CHATBOT_STATE.conversationHistory,
   };
 
   try {
+    // Implementasi timeout untuk mencegah request menggantung selamanya
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), CHATBOT_CONFIG.TIMEOUT);
 
@@ -259,27 +283,35 @@ async function sendMessageToAPI(message) {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `API Error: ${response.status}`);
     }
 
     const data = await response.json();
     const botReply = data.response || "Maaf, saya tidak dapat memproses pesan.";
 
-    // Update State History (User & Bot)
+    // PENTING: Update State History (User & Bot)
+    // Ini memastikan AI tahu apa yang dibicarakan sebelumnya pada prompt berikutnya
     CHATBOT_STATE.conversationHistory.push({ role: 'user', content: message });
-    CHATBOT_STATE.conversationHistory.push({ role: 'bot', content: botReply });
+    CHATBOT_STATE.conversationHistory.push({ role: 'assistant', content: botReply });
 
-    // Tampilkan di UI
+    // Tampilkan respon bot di UI
     addMessageToChat(botReply, 'bot');
 
   } catch (err) {
     console.error("Chatbot Error:", err);
-    const errorMessage = err.name === 'AbortError' 
-      ? "Respon terlalu lama. Silakan coba lagi." 
-      : "Terjadi kesalahan koneksi. Pastikan internet Anda stabil.";
+    let errorMessage = "Terjadi kesalahan koneksi. Silakan coba lagi.";
+    
+    if (err.name === 'AbortError') {
+      errorMessage = "Respon terlalu lama. Silakan coba lagi.";
+    } else if (err.message.includes("API key")) {
+      errorMessage = "Konfigurasi API Key belum benar di server.";
+    }
+    
     addMessageToChat(errorMessage, "bot");
   } finally {
     toggleLoading(false);
+    // Kembalikan fokus ke input setelah selesai
     DOM_ELEMENTS.input?.focus();
   }
 }
